@@ -19,6 +19,9 @@ Receiving objects: 100% (7/7), done.
 Checking connectivity... done.
 ➜  git $ cd cp2017
 ```
+
+The individual repository is referenced by `origin`.
+
 ### Add remote repository
 
 After cloning the repository one should create a `remote` repository be able to fetch upstream changes.
@@ -43,4 +46,53 @@ Now everything is set to actually do some work.
 
 ### Push featurebranch 
 
-### 
+After one figures that the work done so far deserves a break, one can create a commit.
+
+```
+➜  cp2017 git:(create_git_clone_howto) $ git status 
+On branch create_git_clone_howto
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+ 
+	howto/
+ 
+nothing added to commit but untracked files present (use "git add" to track)
+➜  cp2017 git:(create_git_clone_howto) $ git add howto/
+➜  cp2017 git:(create_git_clone_howto) $ git status
+On branch create_git_clone_howto
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+	new file:   howto/git.md
+	new file:   howto/pics/git_fork.png
+➜  cp2017 git:(create_git_clone_howto) $ git commit -m 'initial version of the git HowTo'
+[create_git_clone_howto b028a7c] initial version of the git HowTo
+ 2 files changed, 46 insertions(+)
+ create mode 100644 howto/git.md
+ create mode 100644 howto/pics/git_fork.png
+```
+
+### Rebase the `feature branch`
+
+**Important** To take other changes into account and one should always do a rebase against the `upstream master`\`
+
+### Push to origin
+If this branch is now pushed to the individual repository...
+
+```
+➜  cp2017 git:(create_git_clone_howto) ✗ git push --set-upstream origin create_git_clone_howto
+Counting objects: 6, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (5/5), done.
+Writing objects: 100% (6/6), 51.09 KiB | 0 bytes/s, done.
+Total 6 (delta 0), reused 0 (delta 0)
+To git@github.com:ChristianKniep/cp2017.git
+ * [new branch]      create_git_clone_howto -> create_git_clone_howto
+Branch create_git_clone_howto set up to track remote branch create_git_clone_howto from origin.
+```
+
+... it will automatically create a proposal to create a PR on the repositories (upstream and origin).
+
+![](pics/git_fork.png)
+
+Once clicked it will creat
