@@ -46,13 +46,14 @@ services:
     dns:
       - consul
       - 8.8.8.8
-    privileged: true
     environment:
      - DC_NAME=gocd-dc
      - GO_SERVER=gocd-server
      - GOCD_LOCAL_DOCKERENGINE=true
+     - DOCKER_HOST=unix:///var/run/docker.sock
      - CONSUL_CLUSTER_IPS=consul
      - GOCD_AGENT_AUTOENABLE_KEY=cp2017
+     - GOCD_AGENT_AUTOENABLE_ENV=latest,golang
     privileged: true
 
 networks:
@@ -74,22 +75,22 @@ $
 
 A moment later one can access consul (just to see how the stack is doing) via [localhost:8500](http://localhost:8500).
 
-![pics/consul_init.png]
+![](pics/consul_init.png)
 
 After a couple of seconds (java-processes have to start... :) ), the stack will be green.
 
-![pics/consul_init.png]
+![](pics/consul_init.png)
 
 ### GoCD first look
 
 Now the gocd-server is reachable under [localhost:8153](http://localhost:8153).
 In case the directory `serverBackup` contains now backups to restore from, it will look like this:
 
-![pics/gocd_init.png]
+![](pics/gocd_init.png)
 
 On the agent page, will find one agent that has registered itself.
 
-![pics/gocd_agnets_init.png]
+![](pics/gocd_agnets_init.png)
 
 This agent can be accessed via docker command. It will provide some tooling and a local docker-engine at hand:
 
@@ -121,8 +122,11 @@ $
 
 If the backup is already filled (as it should be by the time you read this), you will see at least this pipeline.
 
-![pics/gocd_restored.png]
+![](pics/gocd_restored.png)
 
+By clicking on the yellow (or green if it is finished) bar, one can access the build step and the job in process.
+
+![](pics/gocd_build.png)
 
 
 
