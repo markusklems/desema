@@ -74,7 +74,16 @@ Changes to be committed:
 
 ### Rebase the `feature branch`
 
-**Important** To take other changes into account and one should always do a rebase against the `upstream master`\`
+**Important** To take other changes into account and one should always do a rebase against the `upstream master`.
+
+```
+➜  cp2017 git:(create_git_clone_howto) ✗ git pull --rebase upstream master
+From github.com:markusklems/cp2017
+ * branch            master     -> FETCH_HEAD
+ * [new branch]      master     -> upstream/master
+Current branch create_git_clone_howto is up to date.
+```
+In this case nothing changed, but better be safe then sorry... :)
 
 ### Push to origin
 If this branch is now pushed to the individual repository...
@@ -95,4 +104,4 @@ Branch create_git_clone_howto set up to track remote branch create_git_clone_how
 
 ![](pics/git_fork.png)
 
-Once clicked it will creat
+Once clicked it will create a PR, that can be peer-reviewed and subsequently merged to the `upstream master`.
