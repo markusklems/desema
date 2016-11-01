@@ -1,0 +1,57 @@
+
+consul:
+    image: qnib/alpn-consul
+    hostname: consul
+    container_name: consul
+    net: gocd
+    ports:
+     - 8500:8500
+    environment:
+     - DC_NAME=gocd-dc
+     - CONSUL_BOOTSTRAP=true
+
+gocd-server:
+    hostname: gocd-server
+    container_name: gocd-server
+    image: qnib/gocd-server
+    dns:
+      - consul
+      - 8.8.8.8
+    net: gocd
+    ports:
+     - 8153:8153
+    environment:
+     - DC_NAME=gocd-dc
+     - GOCD_SERVER_CLEAN_WORKSPACE=false
+     - CONSUL_CLUSTER_IPS=consul
+     - GOCD_AGENT_AUTOENABLE_KEY=cp2017
+    volumes:
+     - ./serverBackups/:/opt/go-server/artifacts/serverBackups/
+
+docker-registry:
+    hostname: docker-registry
+    container_name: docker-registry
+    image: qnib/registry
+    net: gocd
+    ports:
+     - 80:80
+    environment:
+     - DC_NAME=gocd-dc
+     - CONSUL_CLUSTER_IPS=consul
+
+gocd-agent:
+    image: qnib/alpn-gocd-agent
+    net: gocd
+    dns:
+      - consul
+      - 8.8.8.8
+    privileged: true
+    environment:
+     - DC_NAME=gocd-dc
+     - GO_SERVER=gocd-server
+     - GOCD_LOCAL_DOCKERENGINE=true
+     - DOCKER_HOST=unix:///var/run/docker.sock
+     - CONSUL_CLUSTER_IPS=consul
+     - GOCD_AGENT_AUTOENABLE_KEY=cp2017
+     - DOCKER_OPTS=--insecure-registry=docker-registry
+    privileged: true
