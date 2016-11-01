@@ -163,3 +163,6 @@ Branch add_gitignore set up to track remote branch add_gitignore from origin.
 
 OK, not really rinse...
 
+### Why
+
+This little howto was made while having the `PR` for the `.gitignore` file pending, but as these are independent things, they didn't interfere and hence, no harm was done.
