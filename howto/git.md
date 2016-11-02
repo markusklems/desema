@@ -105,3 +105,64 @@ Branch create_git_clone_howto set up to track remote branch create_git_clone_how
 ![](pics/git_fork.png)
 
 Once clicked it will create a PR, that can be peer-reviewed and subsequently merged to the `upstream master`.
+
+### Get up to speed after the Merge
+
+After someone else (because merging your own PR is kinda cheese) merged the PR, you can include your changes back into your master and start working on something else.
+
+```
+➜  cp2017 git:(create_git_clone_howto) ✗ git checkout master
+Switched to branch 'master'
+Your branch is up-to-date with 'origin/master'.
+➜  cp2017 git:(master) ✗ git pull upstream master
+remote: Counting objects: 1, done.
+remote: Total 1 (delta 0), reused 1 (delta 0), pack-reused 0
+Unpacking objects: 100% (1/1), done.
+From github.com:markusklems/cp2017
+ * branch            master     -> FETCH_HEAD
+   59ba707..4b175f0  master     -> upstream/master
+Updating 59ba707..4b175f0
+Fast-forward
+ howto/git.md            | 107 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ howto/pics/git_fork.png | Bin 0 -> 51659 bytes
+ howto/pics/git_pr.png   | Bin 0 -> 77306 bytes
+ 3 files changed, 107 insertions(+)
+ create mode 100644 howto/git.md
+ create mode 100644 howto/pics/git_fork.png
+ create mode 100644 howto/pics/git_pr.png
+```
+
+E.g. I created a `.gitignore` file which prevents certain files to be taken into account for your complete git workflow. They are going to be ignored and will not be added nor pushed to the remote repositories.
+
+```
+➜  cp2017 git:(master) ✗ git checkout -b add_gitignore
+Switched to a new branch 'add_gitignore'
+➜  cp2017 git:(add_gitignore) ✗ cat .gitignore
+**/.DS_Store
+➜  cp2017 git:(add_gitignore) ✗ git commit -m 'ignore files created by the macOS finder app'
+[add_gitignore 7e88d48] ignore files created by the macOS finder app
+ 1 file changed, 1 insertion(+)
+ create mode 100644 .gitignore
+ ➜  cp2017 git:(add_gitignore) ✗ git pull --rebase upstream master
+From github.com:markusklems/cp2017
+ * branch            master     -> FETCH_HEAD
+ * [new branch]      master     -> upstream/master
+Current branch add_gitignore is up to date.
+➜  cp2017 git:(add_gitignore) ✗ git push --set-upstream origin add_gitignore
+Counting objects: 4, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (4/4), 634 bytes | 0 bytes/s, done.
+Total 4 (delta 0), reused 0 (delta 0)
+To git@github.com:ChristianKniep/cp2017.git
+ * [new branch]      add_gitignore -> add_gitignore
+Branch add_gitignore set up to track remote branch add_gitignore from origin.
+```
+
+### Rinse and repeate
+
+OK, not really rinse...
+
+### Why
+
+This little howto was made while having the `PR` for the `.gitignore` file pending, but as these are independent things, they didn't interfere and hence, no harm was done.
