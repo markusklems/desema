@@ -13,9 +13,9 @@ This little example spins up a little Contract stack, defined by the docker-comp
 
 The API endpoints all use the same (simple) golang binary which presents a couple of endpoints.
 
-##### in
+##### source
 The data source which provides the endpoint `GET :8081/get`, returning `{"value": [1,2,3,4] }`. 
-##### out
+##### drain
 An endpoint used by the microservice to push the result to: `POST :8082/add` which consumes `{"value": <int>}`.
 ##### microservice
 
@@ -39,11 +39,11 @@ Step 1 : FROM qnib/alpn-go-dev
 Successfully built 2ade2a57f0e4
 swagger-consul uses an image, skipping
 swagger-editor uses an image, skipping
-Building out
+Building drain
 Step 1 : FROM qnib/alpn-go-dev
 *snip*
 Successfully built 2ade2a57f0e4
-Building in
+Building source
 Step 1 : FROM qnib/alpn-go-dev
 *snip*
 Successfully built 2ade2a57f0e4
@@ -54,9 +54,9 @@ Start the stack...
 ```
 $ docker-compose up -d
 Creating swagger-consul
-Creating in
+Creating source
 Creating swagger-editor
-Creating out
+Creating drain
 Creating microservice
 $ 
 ```
@@ -67,15 +67,15 @@ To oversee the whole operation swagger-editor can be access via [localhost:8080]
 
 ![](pics/swagger_init.png)
 
-#### in.yml
+#### source.yml
 
-The default definition is `in.yml`, by clicking on the right it will query the `/get` endpoint.
+The default definition is `source.yml`, by clicking on the right it will query the `/get` endpoint.
 
 ![](pics/swagger_in.png)
 
-#### out.yml
+#### drain.yml
 
-When switching to the `out.yml` definition (top left `open example`), swagger can post to `/add`.
+When switching to the `drain.yml` definition (top left `open example`), swagger can post to `/add`.
 One has to provide a value...
 
 ![](pics/swagger_out.png)

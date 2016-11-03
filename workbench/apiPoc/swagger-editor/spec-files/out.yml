@@ -21,7 +21,7 @@ paths:
         '200':
           description: value added
           schema:
-            type: integer
+            $ref: '#/definitions/int'
 
 definitions:
   int:
