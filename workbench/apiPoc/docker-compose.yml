@@ -1,0 +1,68 @@
+version: '2'
+services:
+  swagger-consul:
+    image: qnib/alpn-consul
+    hostname: swagger-consul
+    container_name: swagger-consul
+    networks:
+     - swagger
+    ports:
+     - "8500:8500"
+    environment:
+     - DC_NAME=swagger
+     - CONSUL_BOOTSTRAP_EXPECT=1
+
+  swagger-editor:
+    image: qnib/swagger-editor
+    hostname: swagger-editor
+    container_name: swagger-editor
+    networks:
+     - swagger
+    environment:
+     - DC_NAME=swagger
+     - CONSUL_CLUSTER_IPS=swagger-consul
+    ports:
+     - "8080:8080"
+    # swagger-file
+    volumes:
+     - ./swagger-editor/spec-files/:/opt/swagger-editor/spec-files/
+     - ./swagger-editor/config/:/opt/swagger-editor/config/
+
+  in:
+    build: DataBackends
+    hostname: in
+    container_name: in
+    networks:
+     - swagger
+    environment:
+     - DC_NAME=swagger
+     - CONSUL_CLUSTER_IPS=swagger-consul
+    ports:
+     - "8081:8081"
+
+  out:
+    build: DataBackends
+    hostname: out
+    container_name: out
+    networks:
+     - swagger
+    environment:
+     - DC_NAME=swagger
+     - CONSUL_CLUSTER_IPS=swagger-consul
+    ports:
+     - "8082:8081"
+
+  microservice:
+    build: DataBackends
+    hostname: microservice
+    container_name: microservice
+    networks:
+     - swagger
+    environment:
+     - DC_NAME=swagger
+     - CONSUL_CLUSTER_IPS=swagger-consul
+    ports:
+     - "8083:8081"
+
+networks:
+    swagger:

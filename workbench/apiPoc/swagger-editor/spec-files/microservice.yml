@@ -1,0 +1,36 @@
+---
+swagger: '2.0'
+info:
+  version: 0.0.1
+  title: Microservice API
+host: localhost:8083
+paths:
+  /status:
+    get:
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: status of the last job done
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/status'
+
+definitions:
+  status:
+    type: object
+    required:
+      - last_in
+      - last_out
+    properties:
+      last_in:
+        type: array
+        items:
+         type: integer
+         format: int32
+      last_out:
+        type: object
+        items:
+         type: integer
+         format: int32

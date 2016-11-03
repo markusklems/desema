@@ -1,0 +1,27 @@
+---
+swagger: '2.0'
+info:
+  version: 0.0.1
+  title: Source
+host: localhost:8081
+paths:
+  /get:
+    get:
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: integers to sum up
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/int'
+
+definitions:
+  int:
+    type: object
+    required:
+      - value
+    properties:
+      value:
+        type: integer

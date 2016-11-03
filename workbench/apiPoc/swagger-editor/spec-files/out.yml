@@ -1,0 +1,33 @@
+---
+swagger: '2.0'
+info:
+  version: 0.0.1
+  title: Data Sink
+host: localhost:8082
+paths:
+  /add:
+     post:
+      description: Add a new sum to the output
+      produces:
+        - application/json
+      parameters:
+        - name: value
+          in: body
+          description: value to add
+          required: true
+          schema:
+            $ref: '#/definitions/int'
+      responses:
+        '200':
+          description: value added
+          schema:
+            type: integer
+
+definitions:
+  int:
+    type: object
+    required:
+      - value
+    properties:
+      value:
+        type: integer
