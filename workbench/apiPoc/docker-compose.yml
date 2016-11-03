@@ -28,10 +28,10 @@ services:
      - ./swagger-editor/spec-files/:/opt/swagger-editor/spec-files/
      - ./swagger-editor/config/:/opt/swagger-editor/config/
 
-  in:
+  source:
     build: source
-    hostname: in
-    container_name: in
+    hostname: source
+    container_name: source
     networks:
      - swagger
     environment:
@@ -41,10 +41,10 @@ services:
     ports:
      - "8081:8081"
 
-  out:
+  drain:
     build: drain
-    hostname: out
-    container_name: out
+    hostname: drain
+    container_name: drain
     networks:
      - swagger
     environment:
@@ -55,7 +55,7 @@ services:
      - "8082:8082"
 
   microservice:
-    build: DataBackends
+    build: microservice
     hostname: microservice
     container_name: microservice
     networks:
