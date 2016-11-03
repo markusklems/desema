@@ -29,7 +29,7 @@ services:
      - ./swagger-editor/config/:/opt/swagger-editor/config/
 
   in:
-    build: DataBackends
+    build: source
     hostname: in
     container_name: in
     networks:
@@ -37,11 +37,12 @@ services:
     environment:
      - DC_NAME=swagger
      - CONSUL_CLUSTER_IPS=swagger-consul
+     - HTTP_PORT=8081
     ports:
      - "8081:8081"
 
   out:
-    build: DataBackends
+    build: drain
     hostname: out
     container_name: out
     networks:
@@ -49,8 +50,9 @@ services:
     environment:
      - DC_NAME=swagger
      - CONSUL_CLUSTER_IPS=swagger-consul
+     - HTTP_PORT=8082
     ports:
-     - "8082:8081"
+     - "8082:8082"
 
   microservice:
     build: DataBackends
