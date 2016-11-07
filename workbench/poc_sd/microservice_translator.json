@@ -1,0 +1,6 @@
+{
+  "name": "Translator",
+  "description": "This service can be used to translate a text into another language",
+  "endpoint": "www.translator.com/api",
+  "swagger-file": "swagger-example.json",
+}

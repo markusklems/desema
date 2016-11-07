@@ -1,0 +1,6 @@
+{
+  "name": "Calculator",
+  "description": "This service can be used to make simple mathematical calculations (e.g. add numbers)",
+  "endpoint": "www.calculator.com/api",
+  "swagger-file": "swagger-example.json",
+}

@@ -1,0 +1,6 @@
+{
+  "name": "Random text",
+  "description": "This service creates random texts",
+  "endpoint": "www.randomtext.com/api",
+  "swagger-file": "swagger-example.json",
+}
