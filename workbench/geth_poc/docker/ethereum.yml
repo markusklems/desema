@@ -1,0 +1,22 @@
+version: '2'
+services:
+  base:
+    networks:
+      - ethereum-net
+    logging:
+      driver: gelf
+      options:
+        gelf-address: "udp://localhost:12201"
+
+  bootnode:
+    extends:
+      service: base
+    build: ./bootnode/
+    container_name: bootnode
+    ports:
+      - 30301:30301
+
+  geth:
+    extends:
+      service: base
+    build: ./geth/
