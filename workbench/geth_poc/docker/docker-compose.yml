@@ -47,4 +47,3 @@ services:
 
 networks:
     ethereum-net:
-    logs-net:
