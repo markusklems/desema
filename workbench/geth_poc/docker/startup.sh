@@ -36,6 +36,10 @@ curl -XPUT localhost:9200/logstash-$(date +'%Y.%m.%d')/ -d '{"settings": {"index
 echo "> Set kibana replicas to 0"
 curl -sXPUT "localhost:9200/.kibana/_settings" -d '{"index" : {"number_of_replicas" : 0}}'
 
+echo "> Open Kopf dashboard"
+open http://localhost:80 &
+
 docker-compose up -d kibana logstash
 sleep 5
 docker-compose up -d bootnode
+open http://localhost:5601/app/kibana#/dashboard/SimpleDash
