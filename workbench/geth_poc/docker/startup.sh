@@ -1,6 +1,7 @@
 #!/bin/bash
 
 function wait_consul {
+    echo -n "x"
     docker run --rm -t --network=host qnib/consul-cli kv keys / >/dev/null
     if [ $? -ne 0 ];then
         echo -n "x"
@@ -11,6 +12,7 @@ function wait_consul {
     fi
 }
 function wait_consul_srv {
+    echo -n "X"
     if [ $(docker run -t --network=host qnib/consul-cli health service ${1} --passing |jq '. |length') -eq 0 ];then
         echo -n "X"
         sleep 1
@@ -42,4 +44,6 @@ open http://localhost:80 &
 docker-compose up -d kibana logstash
 sleep 5
 docker-compose up -d bootnode
+sleep 2
 open http://localhost:5601/app/kibana#/dashboard/SimpleDash
+docker-compose up -d

@@ -44,7 +44,6 @@ services:
       - 30303
     depends_on:
       - consul
-    command: tail -f /dev/null
 
 networks:
     ethereum-net:
