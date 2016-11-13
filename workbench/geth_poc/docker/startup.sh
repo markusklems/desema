@@ -49,5 +49,5 @@ docker-compose up -d bootnode
 sleep 6
 echo "> Open kibana dashboard to check the log of the bootnode"
 open http://localhost:5601/app/kibana#/dashboard/SimpleDash
-echo "> start geth-client"
+echo "> start geth-client and miner"
 docker-compose up -d

@@ -44,6 +44,16 @@ services:
       - 30303
     depends_on:
       - consul
+  miner:
+    extends:
+      file: ethereum.yml
+      service: geth
+    ports:
+      - 30303
+    depends_on:
+      - consul
+    environment:
+      - ET_MINE_ACCOUNT=0x0000000000000000000000000000000000000001
 
 networks:
     ethereum-net:
