@@ -1,9 +1,11 @@
 version: '2'
 services:
+## consul
   consul:
     extends:
       file: logs.yml
       service: consul
+# log containers
   elasticsearch:
     extends:
       file: logs.yml
@@ -28,14 +30,32 @@ services:
       service: logstash
     depends_on:
       - consul
-
+## Metrics containers
+  influxdb:
+    extends:
+      file: metrics.yml
+      service: influxdb
+    depends_on:
+      - consul
+  grafana3:
+    extends:
+      file: metrics.yml
+      service: grafana3
+    depends_on:
+      - influxdb
+  qcollect:
+    extends:
+      file: metrics.yml
+      service: qcollect
+    depends_on:
+      - influxdb
+## Ethereum containers
   bootnode:
     extends:
       file: ethereum.yml
       service: bootnode
     depends_on:
       - consul
-
   geth:
     extends:
       file: ethereum.yml

@@ -22,10 +22,21 @@ function wait_consul_srv {
     fi
 }
 
-docker-compose up -d consul elasticsearch kopf
-
+echo "> Start consul"
+docker-compose up -d consul
 echo "> Waiting for consul to become accessible"
 wait_consul
+
+## metrics
+echo "> Start influxdb, grafana3 and qcollect"
+docker-compose up -d influxdb qcollect grafana3
+echo "> Waiting for grafana service"
+wait_consul_srv grafana
+echo "> Open Metrics dashboard"
+open http://localhost:3000/dashboard/db/dockerstats-dash &
+
+echo "> Start elasticsearch and kopf container"
+docker-compose up -d elasticsearch kopf
 echo "> Waiting for elasticsearch service"
 wait_consul_srv elasticsearch
 
@@ -43,6 +54,8 @@ open http://localhost:80 &
 
 echo "> Start logstash and kibana"
 docker-compose up -d kibana logstash
+
+
 sleep 10
 echo "> Start the bootnode"
 docker-compose up -d bootnode

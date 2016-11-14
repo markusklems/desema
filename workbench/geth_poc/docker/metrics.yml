@@ -1,0 +1,45 @@
+version: '2'
+services:
+  base:
+    networks:
+      - ethereum-net
+    environment:
+      - CONSUL_CLUSTER_IPS=consul
+
+  influxdb:
+    extends:
+        service: base
+    hostname: influxdb
+    container_name: influxdb
+    image: qnib/influxdb
+    environment:
+     - INFLUXDB_DATABASES=qcollect
+    volumes:
+     - /opt/influxdb/shared
+    ports:
+     - 8083:8083
+     - 8086:8086
+
+  grafana3:
+    extends:
+        service: base
+    hostname: grafana3
+    container_name: grafana3
+    image: qnib/alpn-grafana3
+    environment:
+     - GRAFANA_DEFAULT_SOURCE=qcollect
+    ports:
+     - 3000:3000
+  qcollect:
+    extends:
+        service: base
+    image: qnib/qcollect
+    hostname: qcollect
+    container_name: qcollect
+    environment:
+      - QCOLLECT_INFLUXDB_ENABLED=true
+      - QCOLLECT_INFLUXDB_SERVER=influxdb
+      - DOCKER_HOST=unix:///var/run/docker.sock
+      - QCOLLECT_INTERVAL=5
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
