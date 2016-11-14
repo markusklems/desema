@@ -13,7 +13,7 @@ function wait_consul {
 }
 function wait_consul_srv {
     echo -n "X"
-    if [ $(docker run -t --network=host qnib/consul-cli health service ${1} --passing |jq '. |length') -eq 0 ];then
+    if [ $(docker run --rm -t --network=host qnib/consul-cli health service ${1} --passing |jq '. |length') -eq 0 ];then
         echo -n "X"
         sleep 1
         wait_consul_srv ${1}
