@@ -1,0 +1,4 @@
+{
+    "indices": ".kibana",
+    "ignore_indices": "missing"
+}

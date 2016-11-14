@@ -1,0 +1,61 @@
+version: '2'
+services:
+    base:
+        networks:
+          - ethereum-net
+        environment:
+          - CONSUL_CLUSTER_IPS=consul
+          - ES_PATH_REPO=/snapshot/
+
+    consul:
+        image: qnib/alpn-consul
+        container_name: consul
+        hostname: consul
+        networks:
+          - ethereum-net
+        ports:
+          - 8500:8500
+          - 8500:8500/udp
+        environment:
+          - CONSUL_BOOTSTRAP_EXPECT=1
+
+    elasticsearch:
+        extends:
+            service: base
+        image: qnib/alpn-elasticsearch
+        container_name: elasticsearch
+        volumes:
+         - ./elasticsearch/snapshot/:/snapshot/
+        ports:
+         - 9200:9200
+
+    kopf:
+        extends:
+            service: base
+        image: lmenezes/elasticsearch-kopf
+        container_name: kopf
+        environment:
+         - KOPF_ES_SERVERS=elasticsearch:9200
+         - KOPF_SERVER_NAME=localhost
+        ports:
+         - 80:80
+
+    kibana:
+        extends:
+            service: base
+        image: kibana:4.6
+        container_name: kibana
+        environment:
+         - ELASTICSEARCH_URL=http://elasticsearch:9200
+        ports:
+         - 5601:5601
+
+    logstash:
+        extends:
+            service: base
+        build: ./logstash/
+        container_name: logstash
+        volumes:
+         - ./logstash/etc/:/etc/logstash/
+        ports:
+         - 12201:12201/udp
