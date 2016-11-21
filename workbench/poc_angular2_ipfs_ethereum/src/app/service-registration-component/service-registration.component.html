@@ -1,0 +1,16 @@
+<div class="row">
+  <div class="col-xs-6">
+          <h3>Add service metadata to IPFS</h3>
+         <input type="text" [(ngModel)]="name" placeholder="Service name">
+    <textarea [(ngModel)]="description" placeholder="Describe what your service does"></textarea>
+    <button (click)="addToIpfs()">Add to ipfs</button>
+  </div>
+     
+  <div class="col-xs-6">
+    <h3>Added to ipfs:</h3>     
+    <div *ngIf="ipfsHash != ''">
+      <div>{{"Data hash: " + ipfsHash}}</div>
+      <div>{{"Data content: " + ipfsContent}}</div>
+    </div>
+  </div>
+</div>
