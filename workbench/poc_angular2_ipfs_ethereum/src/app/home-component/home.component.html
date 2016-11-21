@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col-md-5 col-xs-12">
+    <h3>Status IPFS</h3>
+    <div *ngIf="!ipfsDaemonStarted">Starting daemon</div>
+    <div *ngIf="ipfsDaemonStarted">
+      <div>Your IPFS deamon ID is <b>{{daemonId}}</b></div>
+      <div>Your IPFS version is <b>{{agentVersion}}</b></div>
+      <div>Your IPFS protocol version is <b>{{protocolVersion}}</b></div>
+    </div>
+  </div>
+     
+  <div class="col-md-5 col-xs-12">
+    <h3>Status Ethereum</h3>     
+    <div *ngIf="ethereumVersion == null">
+      <input type="text" [(ngModel)]="ethereumProvider">
+      <button (click)="onEthereumConnectClick()">Connect to ethereum provider</button>
+    </div>
+
+    <div *ngIf="ethereumVersion != null">
+      <div>Your ethereum web3 version is <b>{{web3Version}}</b></div>
+      <div>Your ethereum version is <b>{{ethereumVersion}}</b></div>
+      <div>Your ethereum client/node version is <b>{{ethereumClientVersion}}</b></div>
+      <div>Your network protocol version is <b>{{ethereumNetworkProtocolVersion}}</b></div>
+    </div>
+
+  </div>
+</div>
