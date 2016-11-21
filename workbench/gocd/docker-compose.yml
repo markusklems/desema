@@ -38,14 +38,16 @@ services:
     dns:
       - consul
       - 8.8.8.8
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
     environment:
      - DC_NAME=gocd-dc
      - GO_SERVER=gocd-server
-     - GOCD_LOCAL_DOCKERENGINE=true
+     - GOCD_LOCAL_DOCKERENGINE=false
      - DOCKER_HOST=unix:///var/run/docker.sock
      - CONSUL_CLUSTER_IPS=consul
      - GOCD_AGENT_AUTOENABLE_KEY=cp2017
-     - GOCD_AGENT_AUTOENABLE_ENV=latest,golang
+     - GOCD_AGENT_AUTOENABLE_ENV=latest,golang,docker
     privileged: true
 
 networks:
