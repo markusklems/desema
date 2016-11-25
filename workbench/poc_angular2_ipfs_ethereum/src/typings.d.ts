@@ -2,3 +2,4 @@
 // https://www.typescriptlang.org/docs/handbook/writing-declaration-files.html
 declare module 'web3';
 declare module 'concat-stream';
+declare module 'swagger-ui';

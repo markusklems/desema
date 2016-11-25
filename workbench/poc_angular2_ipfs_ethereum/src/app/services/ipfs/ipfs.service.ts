@@ -26,7 +26,6 @@ export class IpfsService {
     var promise = new Promise((resolve, reject) => {
       if (this._node != null) {
         var jsonString = JSON.stringify(microservice);
-        console.log(this._node);
         this._node.files.add(new Buffer(jsonString), (err, res) => {
           if (err || !res) {
             reject(new Error("ipfs add error" + err + res));
