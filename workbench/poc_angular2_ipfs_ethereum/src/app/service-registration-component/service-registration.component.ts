@@ -24,7 +24,7 @@ export class ServiceRegistrationComponent implements OnInit {
   }
 
   private addToIpfs() {
-    var microservice: Microservice = new Microservice(this.name, this.description);
+    let microservice: Microservice = new Microservice(this.name, this.description);
     this._ipfsService.putServiceMetadataToIpfs(microservice).then(file => this.storeSuccess(file));
   }
 
