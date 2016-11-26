@@ -1,7 +1,11 @@
 <div class="row">
   <div class="col-md-5 col-xs-12">
     <h3>Status IPFS</h3>
-    <div *ngIf="!ipfsDaemonStarted">Starting daemon</div>
+    <div *ngIf="!ipfsDaemonStarted">
+      <input type="text" [(ngModel)]="ipfsMultiaddr">
+      <button (click)="onIpfsConnectClick()">Connect to IPFS daemon</button>
+    </div>
+
     <div *ngIf="ipfsDaemonStarted">
       <div>Your IPFS deamon ID is <b>{{daemonId}}</b></div>
       <div>Your IPFS version is <b>{{agentVersion}}</b></div>

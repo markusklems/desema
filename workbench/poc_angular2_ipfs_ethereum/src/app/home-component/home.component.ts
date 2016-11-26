@@ -10,11 +10,15 @@ import {EthereumService} from "../services/ethereum/ethereum.service";
 })
 export class HomeComponent implements OnInit {
 
+  // IPFS
   private ipfsNode: any = null;
   private agentVersion: string = null;
   private protocolVersion: string = null;
   private daemonId: string = null;
   private ipfsDaemonStarted: boolean = false;
+  private ipfsMultiaddr: string = "/ip4/127.0.0.1/tcp/5001";
+
+  // Ethereum
   private web3Version: string = null;
   private ethereumClientVersion: string = null;
   private ethereumNetworkProtocolVersion: string = null;
@@ -26,17 +30,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._ipfsService.initIpfsDeamon().then(node => {
-      this.ipfsDaemonStarted = true;
-      this.ipfsNode = node;
-      node.version().then(version => {
-        this.agentVersion = "js-ipfs/" + version.version;
-      });
-      node.id().then(id => {
-        this.daemonId = id.id;
-        this.protocolVersion = id.protocolVersion;
-      });
-    });
+
   }
 
 
@@ -46,6 +40,18 @@ export class HomeComponent implements OnInit {
       this.ethereumClientVersion = web3Ethereum.version.node;
       this.ethereumNetworkProtocolVersion =web3Ethereum.version.network;
       this.ethereumVersion = web3Ethereum.version.ethereum;
+    });
+  }
+
+  private onIpfsConnectClick() {
+    this._ipfsService.connectIpfsDeamon(this.ipfsMultiaddr).then(node => {
+      this.ipfsDaemonStarted = true;
+      this.ipfsNode = node;
+      node.id().then(version => {
+        this.agentVersion = "js-ipfs/" + version.agentVersion;
+        this.protocolVersion = version.protocolVersion;
+        this.daemonId = version.id;
+      });
     });
   }
 }
