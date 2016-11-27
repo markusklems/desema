@@ -1,0 +1,42 @@
+version: '2'
+services:
+  ipfs:
+   build: docker/ipfs/
+   container_name: ipfs
+   hostname: ipfs
+   networks:
+    - ipfs-net
+   ports:
+    - 8080:8080 
+    - 4001:4001 
+    - 5001:5001
+#   volumes:
+#    - /data/ipfs
+#    - /export
+
+  geth:
+   image: qnib/cp2017-geth
+   container_name: geth
+   hostname: geth
+   networks:
+    - ipfs-net
+   ports:
+    - 8545:8545
+#   volumes:
+#    - /data/ipfs
+#    - /export
+
+  webapp:
+   build: .
+   hostname: webapp
+   container_name: webapp
+   networks:
+    - ipfs-net
+   ports:
+    - 4200:4200
+   command: tail -f /dev/null
+
+
+networks:
+  ipfs-net:
+
