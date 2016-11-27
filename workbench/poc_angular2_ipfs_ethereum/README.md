@@ -11,6 +11,7 @@ What this application does:
 1. Download and install the node package manager (npm)
 2. Download and install an ethereum client (e.g. geth)
 3. Download and install IPFS
+4. Install the angular CLI by `npm install -g angular-cli`
 
 ## Useful resources
 
@@ -71,6 +72,8 @@ The application automatically starts an IPFS deamon from the Browser and shows y
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+
+To run the app on another host address than the default one (localhost:4200), run `ng serve --host 0.0.0.0 --port 4200`
 
 ## Running unit tests
 
