@@ -1,0 +1,29 @@
+ipfs:
+   build: docker/ipfs/
+   container_name: ipfs
+   hostname: cp2017
+   ports:
+    - 8080:8080
+    - 4001:4001
+    - 5001:5001
+    - 8545:8545/udp
+    - 8545:8545
+    - 4200:4200
+    - 30303:30303
+   volumes:
+    - /data/ipfs
+    - /export
+
+geth:
+   build: docker/geth/
+   container_name: geth
+   net: container:ipfs
+   volumes_from:
+    - ipfs
+
+webapp:
+   build: .
+   container_name: webapp
+   net: container:ipfs
+   volumes_from:
+    - ipfs
