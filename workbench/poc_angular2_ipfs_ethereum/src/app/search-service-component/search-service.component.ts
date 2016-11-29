@@ -1,18 +1,18 @@
 import { Component, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'app-discover-service',
-  templateUrl: './discover-service.component.html',
-  styleUrls: ['./discover-service.component.css']
+  selector: 'app-search-service',
+  templateUrl: 'search-service.component.html',
+  styleUrls: ['search-service.component.css']
 })
 
-export class DiscoverServiceComponent implements OnInit {
+export class SearchServiceComponent implements OnInit {
 
     private baseUrl: string;
     private swaggerUrl: string;
     private url: string;
 
-  constructor() { 
+  constructor() {
       this.baseUrl = "http://petstore.swagger.io/";
       this.swaggerUrl = "http://your-url-here.com";
       this.buildUrl();

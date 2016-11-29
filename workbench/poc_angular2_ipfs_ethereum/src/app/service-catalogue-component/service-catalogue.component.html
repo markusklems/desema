@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="col-xs-12">
+
+    <h2>Hover Rows</h2>
+    <p>The .table-hover class enables a hover state on table rows:</p>
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Swagger-URL</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let service of services">
+        <td>{{service.name}}</td>
+        <td>{{service.description}}</td>
+        <td>{{service.hashToSwaggerFile}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

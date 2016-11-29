@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Microservice} from "../../entities/microservice";
+import {Microservice} from "../entities/microservice";
 import * as concat from 'concat-stream';
 declare var IpfsApi: any;
 

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 // unfortunately no typings available for web3 and ipfs
 import * as web3 from 'web3';
 import {IpfsService} from "../services/ipfs/ipfs.service";
-import {Microservice} from "../entities/microservice";
+import {Microservice} from "../services/entities/microservice";
 declare var Ipfs: any;
 
 @Component({

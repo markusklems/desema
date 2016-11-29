@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-5 col-xs-12">
+  <div class="col-md-6 col-xs-12">
     <h3>Status IPFS</h3>
     <div *ngIf="!ipfsDaemonStarted">
       <input type="text" [(ngModel)]="ipfsMultiaddr">
@@ -13,7 +13,7 @@
     </div>
   </div>
      
-  <div class="col-md-5 col-xs-12">
+  <div class="col-md-6 col-xs-12">
     <h3>Status Ethereum</h3>     
     <div *ngIf="ethereumVersion == null">
       <input type="text" [(ngModel)]="ethereumProvider">
@@ -25,6 +25,21 @@
       <div>Your ethereum version is <b>{{ethereumVersion}}</b></div>
       <div>Your ethereum client/node version is <b>{{ethereumClientVersion}}</b></div>
       <div>Your network protocol version is <b>{{ethereumNetworkProtocolVersion}}</b></div>
+    </div>
+
+    <div *ngIf="ethereumVersion != null">
+      <h3>Test contract</h3>
+
+      <button (click)="createTestContract()">Create example contract</button>
+      <div>{{"Contract code: " +testContractCode}}</div>
+      <div>{{"Contract status: " +testContractStatus}}</div>
+
+      <div *ngIf="testContract != null">
+        <input type="number" [(ngModel)]="testContractParam"
+               placeholder='Parameter for contract (an integer, e.g. "8")'>
+        <button (click)="callTestContract()">Call example contract</button>
+        <div>{{"Result: "+testContractResult}}</div>
+      </div>
     </div>
 
   </div>

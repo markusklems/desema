@@ -6,27 +6,37 @@ import {HttpModule} from '@angular/http';
 import {AppComponent} from './app.component';
 import {ServiceRegistrationComponent} from './service-registration-component/service-registration.component';
 import {Routes, RouterModule} from "@angular/router";
-import {HomeComponent} from './home-component/home.component';
+import {SystemStatusComponent} from './system-status-component/system-status.component';
 import {IpfsService} from "./services/ipfs/ipfs.service";
-import {DiscoverServiceComponent} from './discover-service-component/discover-service.component';
 import {EthereumService} from "./services/ethereum/ethereum.service";
 import {SafePipe} from './pipes/safe-url.pipe';
+import { ServiceCatalogueComponent } from './service-catalogue-component/service-catalogue.component';
+import { DashboardComponent } from './dashboard-component/dashboard.component';
+import {SearchServiceComponent} from "./search-service-component/search-service.component";
+import { MyServicesComponent } from './my-services-component/my-services.component';
+import {ServiceRepositoryService} from "./services/service-repository/service-repository.service";
 
 
 const appRoutes: Routes = [
+  {path: 'dashboard', component: DashboardComponent},
+  {path: 'system-status', component: SystemStatusComponent},
   {path: 'register', component: ServiceRegistrationComponent},
-  {path: 'discover', component: DiscoverServiceComponent},
-  {path: 'home', component: HomeComponent},
-  {path: '', redirectTo: '/home', pathMatch: 'full'},
+  {path: 'catalogue', component: ServiceCatalogueComponent},
+  {path: 'search', component: SearchServiceComponent},
+  {path: 'my-services', component: MyServicesComponent},
+  {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
     ServiceRegistrationComponent,
-    HomeComponent,
-    DiscoverServiceComponent,
-    SafePipe
+    SystemStatusComponent,
+    SearchServiceComponent,
+    SafePipe,
+    ServiceCatalogueComponent,
+    DashboardComponent,
+    MyServicesComponent
   ],
   imports: [
     BrowserModule,
@@ -34,8 +44,11 @@ const appRoutes: Routes = [
     HttpModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [IpfsService, EthereumService],
+  providers: [IpfsService, EthereumService, ServiceRepositoryService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
+
+
+
 }
