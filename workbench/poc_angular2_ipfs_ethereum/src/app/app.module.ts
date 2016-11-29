@@ -10,6 +10,7 @@ import {HomeComponent} from './home-component/home.component';
 import {IpfsService} from "./services/ipfs/ipfs.service";
 import {DiscoverServiceComponent} from './discover-service-component/discover-service.component';
 import {EthereumService} from "./services/ethereum/ethereum.service";
+import {SafePipe} from './pipes/safe-url.pipe';
 
 
 const appRoutes: Routes = [
@@ -25,6 +26,7 @@ const appRoutes: Routes = [
     ServiceRegistrationComponent,
     HomeComponent,
     DiscoverServiceComponent,
+    SafePipe
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,7 @@
 <p>
-  Discovery not done yet
+  Discovery not done yet. 
+  <button (click)="updateUrl()">Click me to update the URL.</button>
 </p>
-  <iframe width="100%" height="500px" id="swaggerFrame" src="http://petstore.swagger.io/?url=http://your-url-here.com"></iframe>
+  <iframe width="100%" height="500px" id="swaggerFrame" [src]="url | safe"></iframe>
+
   <!-- add ?url=http://your-url-here.com to the src dynamically later -->
