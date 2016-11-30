@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {IpfsService} from "../services/ipfs/ipfs.service";
 import {EthereumService} from "../services/ethereum/ethereum.service";
+import {ServiceRepositoryService} from "../services/service-repository/service-repository.service";
 
 @Component({
   selector: 'app-system-status',
@@ -32,13 +33,19 @@ export class SystemStatusComponent implements OnInit {
   private testContractResult: any;
 
 
-  constructor(private _ipfsService: IpfsService, private _ethereumService: EthereumService) {
+  constructor(private _ipfsService: IpfsService, private _ethereumService: EthereumService, private _serviceRepositoryService: ServiceRepositoryService) {
   }
 
   ngOnInit() {
-
+    if (this._ethereumService.web3 != null) {
+      // if already connected, this method return the already connected instance
+      this.onEthereumConnectClick();
+    }
+    if (this._ipfsService.node != null) {
+      // if already connected, this method return the already connected instance
+      this.onIpfsConnectClick();
+    }
   }
-
 
   private onEthereumConnectClick() {
     this._ethereumService.initWeb3(this.ethereumProvider).then(web3Ethereum => {
@@ -62,7 +69,7 @@ export class SystemStatusComponent implements OnInit {
   }
 
   private callTestContract() {
-    this._ethereumService.callTestContract(this.testContract, this.testContractParam).then(result => {
+    this._ethereumService.callTestContract(this.testContractParam).then(result => {
       this.testContractResult = result;
     }).catch(err => {
       console.error(err);

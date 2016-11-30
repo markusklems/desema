@@ -29,9 +29,12 @@
 
     <div *ngIf="ethereumVersion != null">
       <h3>Test contract</h3>
-
+      <p>Deploy and call a test contract <br>
+        (this only works if you have the <b>solidity compiler solc installed</b> and added to
+        the path variables of your local system. It can take some time until the contract is mined -> check the javascript
+        console)</p>
       <button (click)="createTestContract()">Create example contract</button>
-      <div>{{"Contract code: " +testContractCode}}</div>
+      <div>{{"Contract code: " + testContractCode}}</div>
       <div>{{"Contract status: " +testContractStatus}}</div>
 
       <div *ngIf="testContract != null">
