@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
-import {Microservice} from "../entities/microservice";
 import * as concat from 'concat-stream';
 declare var IpfsApi: any;
 
 @Injectable()
 export class IpfsService {
 
+  // The connection to the IPFS daemon
   private _node: any = null;
 
   constructor() {
@@ -16,11 +16,11 @@ export class IpfsService {
   }
 
   /**
-   * Connects to a locally running IPFS daemon if not already done. If the connection to the deamon was already initialized,
+   * Connects to a locally running IPFS daemon if not already done. If the connection to the daemon was already initialized,
    * we return the already initialized connection.
-   * @returns {Promise<TResult>|Promise<U>}
+   * @returns {Promise<TResult>|Promise<U>} A promise that resolves as soon as we are connected to IPFS
    */
-  connectIpfsDeamon(multiaddr: string): Promise<any> {
+  public connectIpfsDeamon(multiaddr: string): Promise<any> {
     return new Promise((resolve, reject) => {
       if (this.node == null) {
         // Create the IPFS node instance
@@ -46,23 +46,20 @@ export class IpfsService {
 
 
   /**
-   * Puts the service metadata file to the IPFS deamon
-   * @param microservice
-   * @returns {Promise<T>}
+   * Puts a string to IPFS and returns the IPFS file
+   * @param val The string value, that you want to put to IPFS
+   * @returns {Promise<T>} A promise, which resolves the IPFS file as soon as the string is put to IPFS
    */
-  putServiceMetadataToIpfs(microservice: Microservice): Promise<any> {
-
+  public putToIpfs(val: string): Promise<any> {
     let promise = new Promise((resolve, reject) => {
       if (this._node != null) {
-        let jsonString = JSON.stringify(microservice);
-
-        this._node.add(new Buffer(jsonString), (err, res) => {
+        this._node.add(new Buffer(val), (err, res) => {
           if (err || !res) {
             reject(new Error("ipfs add error" + err + res));
           }
           if (res.length == 1) {
-            resolve(res[0]);
-            console.log('successfully stored', res[0].hash);
+            let ipfsFile = res[0];
+            resolve(ipfsFile);
           } else {
             reject(new Error("Something went wrong"));
           }
@@ -74,7 +71,12 @@ export class IpfsService {
     return promise;
   }
 
-  getServiceMetadataFromIpfs(hash: string): Promise<Microservice> {
+  /**
+   * Gets an IPFS file as string for a given hash
+   * @param hash The hash which is the address for your file
+   * @returns {Promise<T>} A promise that resolves the file as a string as soon as we got it from IPFS
+   */
+  public getFromIpfs(hash: string): Promise<string> {
     let promise = new Promise((resolve, reject) => {
       // buffer: true results in the returned result being a buffer rather than a stream
       this.node.cat(hash, function (err, res) {
@@ -92,6 +94,11 @@ export class IpfsService {
   }
 
 
+  /*
+   *************************************************
+   * Helper
+   * ***********************************************
+   */
   private static Utf8ArrayToStr(array): string {
     let out, i, len, c;
     let char2, char3;

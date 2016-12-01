@@ -1,16 +1,43 @@
 <div class="row">
-  <div class="col-xs-6">
-    <h3>Add service metadata to IPFS</h3>
-    <input type="text" [(ngModel)]="name" placeholder="Service name">
-    <textarea [(ngModel)]="description" placeholder="Describe what your service does"></textarea>
-    <button (click)="addToIpfs()">Add to ipfs</button>
+  <div *ngIf="newServiceHashAddress == undefined" class="col-xs-12">
+    <h3>Register new microservice</h3>
+    <form (ngSubmit)="registerNewService()" >
+      <div class="row">
+        <div class="form-group col-xs-12">
+          <label for="service-name">Service name</label>
+          <input id="service-name" class="form-control" name="service-name"
+                 type="text" [(ngModel)]="name" placeholder="name" required>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-xs-12">
+          <label for="service-description">Service description</label>
+          <textarea id="service-description" class="form-control" name="service-description"
+                   [(ngModel)]="description"
+                    placeholder="Describe what your service does" required></textarea>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-xs-12">
+          <label for="swaggerJson">Select a JSON file from your local file system with the swagger description in it (*.json).</label>
+          <input id="swaggerJson" class="form-control" name="swagger-json"
+                 type="file" accept=".json" placeholder="Swagger JSON file" required>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-xs-12">
+          <button class="btn btn-lg btn-primary btn-block submit-btn" type="submit">
+            Register service account
+          </button>
+        </div>
+      </div>
+    </form>
   </div>
      
-  <div class="col-xs-6">
-    <h3>Added to ipfs:</h3>     
-    <div *ngIf="ipfsHash != ''">
-      <div>{{"Data hash: " + ipfsHash}}</div>
-      <div>{{"Data content: " + ipfsContent}}</div>
+  <div *ngIf="newServiceHashAddress != undefined" class="col-xs-12">
+    <h3>The new service was successfully registered:</h3>     
+    <div >
+      <div>{{"Service hash: " + newServiceHashAddress}}</div>
     </div>
   </div>
 </div>
