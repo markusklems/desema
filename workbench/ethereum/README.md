@@ -5,7 +5,7 @@
 - [For Ubuntu](https://github.com/ethereum/go-ethereum/wiki/Installation-Instructions-for-Ubuntu)
 
 # Solidity Compiling
-Since the native compilation of Solidity is tedious and prone to error, we could use the online compiler:  
+Since the native compilation of Solidity is tedious and prone to error, we could use the Browser-Based Compiler, which is a Browser-based IDE with integrated compiler and Solidity runtime environment without server-side components.
 https://ethereum.github.io/browser-solidity
 
 # Initialization
