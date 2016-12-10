@@ -1,44 +1,47 @@
+<h1>Register new microservice</h1>
 <div class="row">
-  <div *ngIf="newServiceHashAddress == undefined" class="col-xs-12">
-    <h3>Register new microservice</h3>
-    <form (ngSubmit)="registerNewService()" >
-      <div class="row">
-        <div class="form-group col-xs-12">
-          <label for="service-name">Service name</label>
-          <input id="service-name" class="form-control" name="service-name"
-                 type="text" [(ngModel)]="name" placeholder="name" required>
+  <div *ngIf="newServiceHashAddress == undefined" class="col-xs-12 gutter">
+    <div class="register-service content-box">
+      <form (ngSubmit)="registerNewService()">
+        <div class="row">
+          <div class="form-group col-xs-12">
+            <label for="service-name">Service name</label>
+            <input id="service-name" class="form-control" name="service-name"
+                   type="text" [(ngModel)]="name" placeholder="name" required>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="form-group col-xs-12">
-          <label for="service-description">Service description</label>
-          <textarea id="service-description" class="form-control" name="service-description"
-                   [(ngModel)]="description"
-                    placeholder="Describe what your service does" required></textarea>
+        <div class="row">
+          <div class="form-group col-xs-12">
+            <label for="service-description">Service description</label>
+            <textarea id="service-description" class="form-control" name="service-description"
+                      [(ngModel)]="description"
+                      placeholder="Describe what your service does" required></textarea>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="form-group col-xs-12">
-          <label for="swaggerJson">Select a JSON file from your local file system with the swagger description in it (*.json).</label>
-          <input id="swaggerJson" class="form-control" name="swagger-json"
-                 type="file" accept=".json" placeholder="Swagger JSON file" required>
+        <div class="row">
+          <div class="form-group col-xs-12">
+            <label for="swaggerJson">Select a JSON file from your local file system with the swagger description in it
+              (*.json).</label>
+            <input id="swaggerJson" class="form-control" name="swagger-json"
+                   type="file" accept=".json" placeholder="Swagger JSON file" required>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="form-group col-xs-12">
-          <button class="btn btn-lg btn-primary btn-block submit-btn" type="submit">
-            Register service account
-          </button>
+        <div class="row">
+          <div class="form-group col-xs-12">
+            <button class="btn btn-lg btn-primary btn-block submit-btn" type="submit">
+              Register service account
+            </button>
+          </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
-     
-  <div *ngIf="newServiceHashAddress != undefined" class="col-xs-12">
-    <h3>The new service was successfully registered:</h3>     
-    <div >
+</div>
+<div class="row">
+  <div *ngIf="newServiceHashAddress != undefined" class="col-xs-12 gutter">
+    <div class="register-service-result content-box">
+      <h3>The new service was successfully registered:</h3>  
       <div>{{"Service hash: " + newServiceHashAddress}}</div>
     </div>
   </div>
 </div>
-<!-- /.row -->

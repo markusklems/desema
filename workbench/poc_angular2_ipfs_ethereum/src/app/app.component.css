@@ -8,3 +8,9 @@
   bottom: 0px;
   overflow-y: auto;
 }
+
+#outlet {
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 92%;
+}

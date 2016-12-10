@@ -1,49 +1,54 @@
+<h1>System status</h1>
 <div class="row">
-  <div class="col-md-6 col-xs-12">
-    <h3>Status IPFS</h3>
-    <div *ngIf="!ipfsDaemonStarted">
-      <input type="text" [(ngModel)]="ipfsMultiaddr">
-      <button (click)="onIpfsConnectClick()">Connect to IPFS daemon</button>
-    </div>
+  <div class="col-md-5 col-sm-5 col-xs-12 gutter">
 
-    <div *ngIf="ipfsDaemonStarted">
-      <div>Your IPFS deamon ID is <b>{{daemonId}}</b></div>
-      <div>Your IPFS version is <b>{{agentVersion}}</b></div>
-      <div>Your IPFS protocol version is <b>{{protocolVersion}}</b></div>
-    </div>
-  </div>
-     
-  <div class="col-md-6 col-xs-12">
-    <h3>Status Ethereum</h3>     
-    <div *ngIf="ethereumVersion == null">
-      <input type="text" [(ngModel)]="ethereumProvider">
-      <button (click)="onEthereumConnectClick()">Connect to ethereum provider</button>
-    </div>
+    <div class="ipfs-status content-box">
+      <h2>Status IPFS</h2>
+      <div *ngIf="!ipfsDaemonStarted">
+        <input type="text" [(ngModel)]="ipfsMultiaddr">
+        <button (click)="onIpfsConnectClick()">Connect to IPFS daemon</button>
+      </div>
 
-    <div *ngIf="ethereumVersion != null">
-      <div>Your ethereum web3 version is <b>{{web3Version}}</b></div>
-      <div>Your ethereum version is <b>{{ethereumVersion}}</b></div>
-      <div>Your ethereum client/node version is <b>{{ethereumClientVersion}}</b></div>
-      <div>Your network protocol version is <b>{{ethereumNetworkProtocolVersion}}</b></div>
-    </div>
-
-    <div *ngIf="ethereumVersion != null">
-      <h3>Test contract</h3>
-      <p>Deploy and call a test contract <br>
-        (this only works if you have the <b>solidity compiler solc installed</b> and added to
-        the path variables of your local system. It can take some time until the contract is mined -> check the javascript
-        console)</p>
-      <button (click)="createTestContract()">Create example contract</button>
-      <div>{{"Contract code: " + testContractCode}}</div>
-      <div>{{"Contract status: " +testContractStatus}}</div>
-
-      <div *ngIf="testContract != null">
-        <input type="number" [(ngModel)]="testContractParam"
-               placeholder='Parameter for contract (an integer, e.g. "8")'>
-        <button (click)="callTestContract()">Call example contract</button>
-        <div>{{"Result: "+testContractResult}}</div>
+      <div *ngIf="ipfsDaemonStarted">
+        <div>Your IPFS deamon ID is <b>{{daemonId}}</b></div>
+        <div>Your IPFS version is <b>{{agentVersion}}</b></div>
+        <div>Your IPFS protocol version is <b>{{protocolVersion}}</b></div>
       </div>
     </div>
+  </div>
+  <div class="col-md-7 col-sm-7 col-xs-12 gutter">
 
+    <div class="ethereum-status content-box">
+      <h2>Status Ethereum</h2>     
+      <div *ngIf="ethereumVersion == null">
+        <input type="text" [(ngModel)]="ethereumProvider">
+        <button (click)="onEthereumConnectClick()">Connect to ethereum provider</button>
+      </div>
+
+      <div *ngIf="ethereumVersion != null">
+        <div>Your ethereum web3 version is <b>{{web3Version}}</b></div>
+        <div>Your ethereum version is <b>{{ethereumVersion}}</b></div>
+        <div>Your ethereum client/node version is <b>{{ethereumClientVersion}}</b></div>
+        <div>Your network protocol version is <b>{{ethereumNetworkProtocolVersion}}</b></div>
+      </div>
+
+      <div *ngIf="ethereumVersion != null">
+        <h3>Test contract</h3>
+        <p>Deploy and call a test contract <br>
+          (this only works if you have the <b>solidity compiler solc installed</b> and added to
+          the path variables of your local system. It can take some time until the contract is mined -> check the javascript
+          console)</p>
+        <button (click)="createTestContract()">Create example contract</button>
+        <div>{{"Contract code: " + testContractCode}}</div>
+        <div>{{"Contract status: " +testContractStatus}}</div>
+
+        <div *ngIf="testContract != null">
+          <input type="number" [(ngModel)]="testContractParam"
+                 placeholder='Parameter for contract (an integer, e.g. "8")'>
+          <button (click)="callTestContract()">Call example contract</button>
+          <div>{{"Result: "+testContractResult}}</div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

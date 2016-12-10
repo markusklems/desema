@@ -1,82 +1,58 @@
-<!--
-<div class="jumbotron text-center">
-    <h1>Service Marketplace</h1>
-    <p>A decentralized marketplace for micro services</p>
-</div>
-<div class="container">
-  <div class="row">
-    <div class="col-xs-12">
-      <ul class="nav nav-pills nav-justified">
-        <li role="presentation" routerLink="/home" routerLinkActive="active"><a>Home</a></li>
-        <li role="presentation" routerLink="/register" routerLinkActive="active"><a>Register Microservice</a></li>
-        <li role="presentation" routerLink="/discover" routerLinkActive="active"><a>Discover</a></li>
-      </ul>
-    </div>
-  </div>
-
-</div>
--->
-
-<div id="wrapper">
-
-  <!-- Navigation -->
-  <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" routerLink="/home">Service Marketplace</a>
-    </div>
-    <!-- /.navbar-header -->
-
-    <ul class="nav navbar-top-links navbar-right">
-      <li>
-        <a>
-          <i class="fa fa-question fa-fw"></i> Help
-        </a>
-      </li>
-    </ul>
-    <!-- /.navbar-top-links -->
-
-    <div class="navbar-default sidebar" role="navigation">
-      <div class="sidebar-nav navbar-collapse">
-        <ul class="nav" id="side-menu">
-          <li routerLink="/dashboard" routerLinkActive="active">
-            <a><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+<div class="container-fluid display-table">
+  <div class="row display-table-row">
+    <div class="col-md-2 col-xs-1 display-table-cell v-align box" id="navigation">
+      <div class="navi">
+        <ul>
+          <li routerLink="/dashboard" routerLinkActive="active"><a><i class="fa fa-dashboard fa-fw" aria-hidden="true"></i><span
+            class="hidden-xs hidden-sm">Dashboard</span></a>
           </li>
-          <li routerLink="/system-status" routerLinkActive="active">
-            <a><i class="fa fa-cogs fa-fw"></i> System status</a>
+          <li routerLink="/system-status" routerLinkActive="active"><a><i class="fa fa-cogs fa-fw" aria-hidden="true"></i><span
+            class="hidden-xs hidden-sm">System status</span></a></li>
+          <li routerLink="/register" routerLinkActive="active"><a><i class="fa fa-edit fa-fw" aria-hidden="true"></i><span
+            class="hidden-xs hidden-sm">Register service</span></a></li>
+          <li routerLink="/catalogue" routerLinkActive="active"><a><i class="fa fa-table fa-fw" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Service catalogue</span></a>
           </li>
-          <li routerLink="/register" routerLinkActive="active">
-            <a><i class="fa fa-edit fa-fw"></i> Register service</a>
-          </li>
-          <li routerLink="/catalogue" routerLinkActive="active">
-            <a><i class="fa fa-table fa-fw"></i> Service catalogue</a>
-          </li>
-          <li routerLink="/search" routerLinkActive="active">
-            <a><i class="fa fa-search fa-fw"></i> Search service</a>
-          </li>
-          <li routerLink="/my-services" routerLinkActive="active">
-            <a><i class="fa fa-server fa-fw"></i> My services</a>
-          </li>
+          <li routerLink="/search" routerLinkActive="active"><a><i class="fa fa-search fa-fw" aria-hidden="true"></i><span
+            class="hidden-xs hidden-sm">Search service</span></a></li>
+          <li routerLink="/my-services" routerLinkActive="active"><a><i class="fa fa-server fa-fw" aria-hidden="true"></i><span
+            class="hidden-xs hidden-sm">My services</span></a></li>
         </ul>
       </div>
-      <!-- /.sidebar-collapse -->
     </div>
-    <!-- /.navbar-static-side -->
-  </nav>
+    <div class="col-md-10 col-sm-11 display-table-cell v-align">
+      <!--<button type="button" class="slide-toggle">Slide Toggle</button> -->
+      <div class="row">
+        <header>
+          <div class="col-md-7">
+            <nav class="navbar-default pull-left">
+              <div class="navbar-header">
+                <div class="logo">
+                  <a routerLink="/dashboard">
+                    <b>Service Marketplace</b>
+                    <!--img src="" alt="marketplace_logo"
+                         class="circle-logo"-->
+                  </a>
+                </div>
+              </div>
+            </nav>
+          </div>
 
-
-  <!-- Page Content -->
-  <div id="page-wrapper">
-    <div class="container-fluid">
-      <router-outlet></router-outlet>
+          <div class="col-md-5">
+            <div class="header-rightside">
+              <ul class="list-inline header-top pull-right">
+                <li>
+                  <a href="#" class="icon-info">
+                    <i class="fa fa-question fa-fw" aria-hidden="true"></i> Help
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </header>
+      </div>
+      <div id="outlet">
+        <router-outlet></router-outlet>
+      </div>
     </div>
-    <!-- /.container-fluid -->
   </div>
-  <!-- /#page-wrapper -->
-
 </div>
