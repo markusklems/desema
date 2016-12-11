@@ -1,0 +1,3 @@
+REMOTE_DRIVER=github
+REMOTE_CONFIG=https://github.com?client_id=<client_id>&client_secret=<client_secret>
+
