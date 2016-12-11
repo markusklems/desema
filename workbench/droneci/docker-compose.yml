@@ -1,0 +1,26 @@
+version: '2'
+services:
+  drone-server:
+    image: drone/drone:0.4.2
+    hostname: drone-server
+    container_name: drone-server
+    ports:
+     - 8000:8000
+    volumes:
+     - ./drone/:/var/lib/drone
+     - /var/run/docker.sock:/var/run/docker.sock
+    env_file: 
+     - dronerc
+    restart: always
+
+  aircover:
+    image: aircover/aircover
+    hostname: aircover
+    container_name: aircover
+    volumes:
+     -  /var/lib/aircover:/var/lib/aircover
+    env_file:
+     - aircover.rc 
+    restart: always
+    ports:
+     - 8008:8000

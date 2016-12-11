@@ -1,0 +1,4 @@
+GITHUB_URL=https://github.com
+GITHUB_SCOPE=user:email,read:org,repo
+GITHUB_CLIENT=
+GITHUB_SECRET=
