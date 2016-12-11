@@ -1,29 +1,17 @@
 ipfs:
-   build: docker/ipfs/
+   image: qnib/cp2017-ipfs
    container_name: ipfs
-   hostname: cp2017
-   ports:
-    - 8080:8080
-    - 4001:4001
-    - 5001:5001
-    - 8545:8545/udp
-    - 8545:8545
-    - 4200:4200
-    - 30303:30303
+   net: host
    volumes:
     - /data/ipfs
     - /export
 
 geth:
-   build: docker/geth/
+   image: qnib/cp2017-geth
    container_name: geth
-   net: container:ipfs
-   volumes_from:
-    - ipfs
+   net: host
 
 webapp:
-   build: .
+   image: qnib/cp2017-webapp
    container_name: webapp
-   net: container:ipfs
-   volumes_from:
-    - ipfs
+   net: host
