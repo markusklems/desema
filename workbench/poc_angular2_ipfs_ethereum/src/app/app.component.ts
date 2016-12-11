@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-declare var Ipfs: any;
-
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-root',
@@ -15,5 +14,14 @@ export class AppComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.initViewNavigation();
+  }
+
+  private initViewNavigation():void {
+    $(document).ready(function(){
+      $('[data-toggle="offcanvas"]').click(function(){
+        $("#navigation").toggleClass("hidden-xs");
+      });
+    });
   }
 }

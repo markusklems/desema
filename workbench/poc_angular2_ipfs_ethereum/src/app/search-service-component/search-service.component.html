@@ -1,7 +1,14 @@
-<p>
-  Discovery not done yet. 
-  <button (click)="updateUrl()">Click me to update the URL.</button>
-</p>
-  <iframe width="100%" height="500px" id="swaggerFrame" [src]="url | safe"></iframe>
+<h1>Search service</h1>
+<div class="row">
+  <div class="col-xs-12 gutter">
+    <div class="service-search content-box">
+      <button (click)="updateUrl()">Click me to update the URL.</button>
+      <iframe width="100%" height="500px" id="swaggerFrame" [src]="url | safe"></iframe>
+    </div>
+  </div>
+</div>
 
-  <!-- add ?url=http://your-url-here.com to the src dynamically later -->
+<!-- add ?url=http://your-url-here.com to the src dynamically later -->
+
+
+
