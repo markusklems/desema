@@ -22,4 +22,16 @@ export class Microservice {
   get hashToSwaggerFile(): string {
     return this._hashToSwaggerFile;
   }
+
+  set name(name: string){
+    this._name = name;
+  }
+
+  set description(description: string){
+    this._description = description;
+  }
+  
+  set hashToSwaggerFile(hashToSwaggerFile: string){
+    this._hashToSwaggerFile = hashToSwaggerFile;
+  }
 }

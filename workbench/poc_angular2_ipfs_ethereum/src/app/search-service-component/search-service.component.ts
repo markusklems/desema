@@ -1,4 +1,5 @@
 import { Component, OnInit} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-search-service',
@@ -9,26 +10,32 @@ import { Component, OnInit} from '@angular/core';
 export class SearchServiceComponent implements OnInit {
 
     private baseUrl: string;
-    private swaggerUrl: string;
+    private swaggerHash: string;
     private url: string;
+    private sub: any;
 
-  constructor() {
+  constructor(private route: ActivatedRoute) {
       this.baseUrl = "http://petstore.swagger.io/";
-      this.swaggerUrl = "http://your-url-here.com";
+      this.swaggerHash = "http://your-url-here.com";
       this.buildUrl();
   }
 
   updateUrl(){
-      //this.swaggerUrl = "http://localhost:8080/ipfs/QmTVYom5k8Q1XnRaWGeHmwAAcnjFcoAA6Yju6RqqsrznUG";
-      this.swaggerUrl = "http://petstore.swagger.io/v2/swagger.json";
+      //this.swaggerHash = "http://localhost:8080/ipfs/QmTVYom5k8Q1XnRaWGeHmwAAcnjFcoAA6Yju6RqqsrznUG";
+      this.swaggerHash = "http://petstore.swagger.io/v2/swagger.json";
       this.buildUrl();
   }
 
   buildUrl(){
-      this.url = this.baseUrl + "?url=" + this.swaggerUrl;
+      this.url = this.baseUrl + "?url=" + this.swaggerHash;
   }
 
   ngOnInit() {
+    this.sub = this.route.params.subscribe(params => {
+      console.log(params);
+      this.swaggerHash = "https://ipfs.io/ipfs/" + params["hash"]; // (+) converts string 'id' to a number
+      this.buildUrl();
+    });
   }
 
 }

@@ -22,7 +22,7 @@ const appRoutes: Routes = [
   {path: 'system-status', component: SystemStatusComponent},
   {path: 'register', component: ServiceRegistrationComponent},
   {path: 'catalogue', component: ServiceCatalogueComponent},
-  {path: 'search', component: SearchServiceComponent},
+  {path: 'search/:hash', component: SearchServiceComponent},
   {path: 'my-services', component: MyServicesComponent},
   {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
 ];
