@@ -35,7 +35,7 @@ export class ServiceRepositoryService {
           // 3. Put that JSON to IPFS and get a hash for the metadata --> serviceHash
           this._ipfsService.putToIpfs(serviceJsonString).then(ipfsServiceFile => {
             let serviceHash = ipfsServiceFile.hash;
-            console.log("Step 2 succeeded: IPFS service hash " + swaggerHash);
+            console.log("Step 2 succeeded: IPFS service hash " + serviceHash);
 
             // 4. Call the ethereum contract to register that metadataHash
             let registrationContract = this._ethereumService.web3.eth.contract(ContractProviderService.REGISTRY_CONTRACT_ABI)

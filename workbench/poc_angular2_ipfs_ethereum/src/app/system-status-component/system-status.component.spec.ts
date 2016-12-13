@@ -4,6 +4,9 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { SystemStatusComponent } from './system-status.component';
+import {FormsModule} from "@angular/forms";
+import {IpfsService} from "../services/ipfs/ipfs.service";
+import {EthereumService} from "../services/ethereum/ethereum.service";
 
 describe('SystemStatusComponent', () => {
   let component: SystemStatusComponent;
@@ -11,7 +14,9 @@ describe('SystemStatusComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SystemStatusComponent ]
+      declarations: [ SystemStatusComponent ],
+      providers: [IpfsService, EthereumService],
+      imports: [ FormsModule ]
     })
     .compileComponents();
   }));
