@@ -16,23 +16,18 @@ contract ServiceRegistery {
     function ServiceRegistery() {
     }
     
-    function Register(bytes32 serviceHash) returns (bool) {
+    function Register(bytes32 serviceHash) {
         if(owners[serviceHash] == address(0)){
             owners[serviceHash] = msg.sender;
             ServicesCount++;
+	    services[ServicesCount] = serviceHash;
             NewService(serviceHash);
-            return true;
-        }else{
-            return false;
         }
     }
     
-    function ChangeOwnership(address add, bytes32 serviceHash) returns (bool) {
+    function ChangeOwnership(address add, bytes32 serviceHash){
         if(owners[serviceHash] == msg.sender){
             owners[serviceHash] = add;
-            return true;
-        }else{
-            return false;
         }
     }
     
