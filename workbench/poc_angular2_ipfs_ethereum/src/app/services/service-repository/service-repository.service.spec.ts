@@ -1,16 +1,19 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject } from '@angular/core/testing';
-import { RepositoryServicesService } from './service-repository.service';
+import { ServiceRepositoryService } from './service-repository.service';
+import {IpfsService} from "../ipfs/ipfs.service";
+import {EthereumService} from "../ethereum/ethereum.service";
 
-describe('RepositoryServicesService', () => {
+describe('ServiceRepositoryService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [RepositoryServicesService]
+      providers: [ServiceRepositoryService, IpfsService, EthereumService]
     });
   });
 
-  it('should ...', inject([RepositoryServicesService], (service: RepositoryServicesService) => {
+  it('should ...', inject([ServiceRepositoryService], (service: ServiceRepositoryService) => {
+    //TODO
     expect(service).toBeTruthy();
   }));
 });
