@@ -14,7 +14,7 @@
         <tr *ngFor="let service of services">
           <td>{{service.name}}</td>
           <td>{{service.description}}</td>
-          <td>{{service.hashToSwaggerFile}}</td>
+          <td><a *ngIf="service.hashToSwaggerFile" [routerLink]="['/search', service.hashToSwaggerFile]">Open swagger file</a></td>
         </tr>
         </tbody>
       </table>

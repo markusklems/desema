@@ -30,7 +30,9 @@ export class ServiceRepositoryService {
 
           // 2. Create a new Microservice(name, description, swaggerHash) entity and convert it to JSON
           let microserviceObject: Microservice = new Microservice(name, description, swaggerHash);
+          console.log("Uploading microservice: " + microserviceObject);
           let serviceJsonString = JSON.stringify(microserviceObject);
+          console.log("Uploading serviceJsonString: " + serviceJsonString);
 
           // 3. Put that JSON to IPFS and get a hash for the metadata --> serviceHash
           this._ipfsService.putToIpfs(serviceJsonString).then(ipfsServiceFile => {
@@ -66,17 +68,30 @@ export class ServiceRepositoryService {
   getAllServices(): Promise<any> {
     let promise = new Promise((resolve, reject) => {
       if (this._ipfsService.node != null && this._ethereumService.web3 != null) {
+        /*
+        let catalogueContract = this._ethereumService.web3.eth.contract(ContractProviderService.REGISTRY_CONTRACT_ABI)
+        .at(ContractProviderService.REGISTRY_CONTRACT_ADDRESS);
+        let serviceHashList = catalogueContract.services(); //?
+        console.log("Succeeded getting service catalogue:" + serviceHashList);
+        */
         // TODO:
         // 1. Get all hashes from the Blockchain
-        // 2. For every hash we got, we have to fetch the metadata from IPFS
-        // 3. Done (delete the mocks below)
+        
+        let serviceHashList: string[] = ["Qmc33Sjp9xzRW5zbXPhUQCBfuFSqckuYkYN1nD7btSeYjq",
+        "Qmem6Dv6pVjXLXcw8gKUqWHycSo8r63gLyeMVBxeGxBbYd"];
 
+        let microservices: Microservice[] = [];
+        for(let serviceHash of serviceHashList){
+          this._ipfsService.getFromIpfs(serviceHash).then(ipfsServiceFile => {
+            let serviceObj = JSON.parse(ipfsServiceFile);
+            microservices.push(new Microservice(serviceObj._name, serviceObj._description, serviceObj._hashToSwaggerFile));
+            console.log(serviceObj._name + ", " + serviceObj._description + ", " + serviceObj._hashToSwaggerFile);
+          }).catch(err => {
+            reject(err);
+          });
+        }
 
-        let microservicesMocks: Microservice[] = [new Microservice("Word counter", "This service counts some words"),
-          new Microservice("Image scale", "This service scales images for you", "http://petstore.swagger.io/v2/swagger.json"),
-          new Microservice("Key value store", "This service is a simple key value store")];
-
-        resolve(microservicesMocks);
+        resolve(microservices);
       } else {
         reject(new Error("You have to connect to the IPFS and Ethereum networks first first!"));
       }
