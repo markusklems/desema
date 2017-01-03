@@ -2,18 +2,16 @@ pragma solidity ^0.4.2;
 
 contract mortal{
 // address is a pre defined variable in solidity
-
 address public owner;
 
 //constructor without any arguments
-
 function mortal(){
 
 __//msg is predefined object in solidity__
 __//compiler takes address of the sender of contract__
 __//and place it in the owner.__
-
 owner = msg.sender;
+
 }
 
 __//modifier will put restrictions__
@@ -43,6 +41,19 @@ function kill() onlyOwner{
 }
 }
 
+
+
+
+
+
+
+
+
+
+//USER CONTRACT 
+
+
+
 // User Contract
 //this exhibits inheritence
 //contract User now has all the functionlity of mortal
@@ -50,25 +61,33 @@ function kill() onlyOwner{
 contract User is mortal {
 string public userName;
 
-//mapping services corresponds to address
 
+
+//mapping services corresponds to address of the provider 
+//it maps the address of the provider providing the specified service
+//this info will be stored in the array service
 mapping(address => Service) public services;
+
+
 
 //user need to be associated with different services
 //service can be anything offered
-
+//struct needs to create different objects stands for service 
 struct Service{
 bool active; __// whether subscribed a service or not__
 uint lastUpdate; __// when did the user last time interacted with the service.__
 uint256 debt; __// ether transfer__
 }
+
+
+//CONSTRUCTOR FUNCTION first this function is completed then only the USER CONTRACT will be executed.
 function User(string _name){
 userName = _name;
 }
 
+
 //function making user to register with the provider who is providing the service
 //only the user contract owner will be able to register with the service provider.
-
 function registerToProvider(address _providerAddress) onlyOwner{
 
 __//array of services for that provider address and the things that it should exhibit.__
@@ -79,6 +98,8 @@ services[_providerAddress] = Service({
   });
 }
 
+
+
 //setting up the cost of services
 
   function setDebt(uint256 _debt){
@@ -87,6 +108,7 @@ __//it will find the address of the service provider and will check whether__
 __//the service is active or not.__
 __//msg.sender is the address of the provider__
 __//user cannot use this function__
+// msg.sender will be th address of the provider contract 
 
 if(services[msg.sender].active){
   services[msg.sender].lastUpdate = now;
@@ -109,7 +131,7 @@ _providerAddress.send(services[_providerAddress].debt);
 
 //unsubscribing from the service
 
-function unSubscribe(address _providerAddress){
+function unsubscribe(address _providerAddress){
 if(services[_providerAddress.debt == 0]){
   services[_providerAddress].active = false;
 }
@@ -119,15 +141,19 @@ else{
 }
 }
 
+
+
 //Service Provider Contract
 
 contract Provider is mortal{
 string public providerName;
 string public description;
 
+//constructor function 
 function Provider(string _name,string _description){
 providerName = _name;
 description = _description;
+
 }
 
 //providing the provider the prevelidge to access setDebt function.
