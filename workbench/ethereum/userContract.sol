@@ -1,67 +1,71 @@
+solidity ^0.4.0;
 
-contract User is mortal {
-string public userName;
+contract User {
+    address public usrAdd;
+    string public userName;
 
+    mapping(address => Service) public services;
+    Service[] myservices;
 
-mapping(address => Service) public services;
+    struct Service{
+        address serviceAdd;
+        bytes32 serviceHash;
+        uint lastUsage;
+        uint256 totalPaied;
+    }
 
-struct Service{
-bool active; __// whether subscribed a service or not__
-uint lastUpdate; __// when did the user last time interacted with the service.__
-uint256 debt; __// ether transfer__
+    function User(string _name){
+        usrAdd = msg.sender;
+        userName = _name;
+    }
+
+    modifier onlyOwner{
+        if(msg.sender != usrAdd){
+            throw;
+        }
+        else{
+            _ ;
+        }
+    }
+    
+    function setServicePublicKey(String publicKey){
+        
+    }
+
+    function registerToService(address serviceAddress) onlyOwner{
+        // if service already not exist, just update usage information
+        services[providerAddress] = Service({
+            active:true,
+            lastUpdate:now,
+            debt:0
+        });
+        
+        //else put a new service struct
+        
+        // call service.consume
+    }
+
+    function setDebt(uint256 _debt){
+        if(services[msg.sender].active){
+            services[msg.sender].lastUpdate = now;
+            services[msg.sender].debt = _debt;
+        }
+        else{
+            throw;
+        }
+    }
+
+    function payToProvider(address _providerAddress){
+        _providerAddress.send(services[_providerAddress].debt);
+    }
+
+    function unsubscribe(address _providerAddress){
+        if(services[_providerAddress].debt == 0]){
+            services[_providerAddress].active = false;
+        }
+        else{
+            throw;
+        }
+    }
 }
-
-function User(string _name){
-userName = _name;
-}
-
-
-//function making user to register with the provider who is providing the service
-
-function registerToProvider(address _providerAddress) onlyOwner{
-
-services[_providerAddress] = Service({
-   active:true,
-   lastUpdate:now,
-   debt:0
-  });
-}
-
-
-
-//setting up the cost of services
-
-  function setDebt(uint256 _debt){
-
-if(services[msg.sender].active){
-  services[msg.sender].lastUpdate = now;
-  services[msg.sender].debt       = _debt;
-
-
-
-}
-else{
-  throw;
-}
-}
-
-//paying the fee
-
-function payToProvider(address _providerAddress){
-_providerAddress.send(services[_providerAddress].debt);
-
-}
-
-//unsubscribing from the service
-
-function unsubscribe(address _providerAddress){
-if(services[_providerAddress.debt == 0]){
-  services[_providerAddress].active = false;
-}
-else{
-  throw;
-}
-}
-}
-
 
