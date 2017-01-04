@@ -1,8 +1,7 @@
 pragma solidity ^0.4.0;
 
-contract User {
-    address public usrAdd;
-    string public userName;
+contract Provider {
+    address public providerAdd;
 
     mapping(address => Service) public services;
     Service[] myservices;
@@ -10,11 +9,11 @@ contract User {
     struct Service{
         address serviceAdd;
         bytes32 serviceHash;
-        uint lastUsage;
-        uint256 totalPaied;
+        uint nbCurrentUsers;
+        uint256 totalUsage;
     }
 
-    function User(string _name){
+    function Provider(string _name){
         usrAdd = msg.sender;
         userName = _name;
     }
@@ -44,28 +43,4 @@ contract User {
         
         // call service.consume
     }
-
-    function setDebt(uint256 _debt){
-        if(services[msg.sender].active){
-            services[msg.sender].lastUpdate = now;
-            services[msg.sender].debt = _debt;
-        }
-        else{
-            throw;
-        }
-    }
-
-    function payToProvider(address _providerAddress){
-        _providerAddress.send(services[_providerAddress].debt);
-    }
-
-    function unsubscribe(address _providerAddress){
-        if(services[_providerAddress].debt == 0]){
-            services[_providerAddress].active = false;
-        }
-        else{
-            throw;
-        }
-    }
 }
-
