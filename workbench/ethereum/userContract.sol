@@ -1,47 +1,66 @@
-pragma solidity ^0.4.0;
+pragma solidity ^0.4.2;
+
+contract baseContract{
+
+	address public owner;
+
+	function baseContract(){
+		owner = msg.sender;
+	}
+
+  	modifier onlyOwner{
+  		if(msg.sender != owner){
+    			throw;
+  		}
+  		else{
+    			_;
+  		}
+	}
+
+	function kill() onlyOwner{
+  		suicide(owner);
+	}
+}
 
 contract User {
     address public usrAdd;
-    string public userName;
 
     mapping(address => Service) public services;
-    Service[] myservices;
+    Service[] myConsumedservices;
+    Service[] myProvidedservices;
+    String public publicKey;
 
     struct Service{
-        address serviceAdd;
+        address serviceAddress;
         bytes32 serviceHash;
         uint lastUsage;
-        uint256 totalPaied;
+        uint256 numberUsage;
     }
 
-    function User(string _name){
+    function User(String _publicKey){
         usrAdd = msg.sender;
-        userName = _name;
+        publicKey = _name;
     }
 
-    modifier onlyOwner{
-        if(msg.sender != usrAdd){
-            throw;
+    function setServicePublicKey(String publicKey){
+        //ToDo
+    }
+
+    function consumeService(address _serviceAddress, bytes32 _serviceHash) onlyOwner{
+        // if service already not exist, just update usage information
+        if(myConsumedservices[_serviceAddress] == 0){
+            myConsumedservices[_serviceAddress] =({
+                serviceAddress:_serviceAddress,
+                serviceHash:_serviceHash,
+                lastUsage:now,
+                numberUsage:1
+            });
         }
         else{
-            _ ;
+            myConsumedservices[_serviceAddress].lastUsage = now;
+            myConsumedservices[_serviceAddress].numberUsage++;
         }
-    }
-    
-    function setServicePublicKey(String publicKey){
-        
-    }
 
-    function registerToService(address serviceAddress) onlyOwner{
-        // if service already not exist, just update usage information
-        services[providerAddress] = Service({
-            active:true,
-            lastUpdate:now,
-            debt:0
-        });
-        
-        //else put a new service struct
-        
         // call service.consume
     }
 
@@ -68,4 +87,3 @@ contract User {
         }
     }
 }
-
