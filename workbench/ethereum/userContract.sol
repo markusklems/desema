@@ -22,24 +22,61 @@ contract baseContract{
 	}
 }
 
-contract User {
+contract Service is baseContract{
+
+	uint public servicePrice;
+	user[] users;
+
+	struct user{
+		address userAddress;
+		bytes32 userPubKey;
+		uint lastUpdate;
+		uint numberUsage;
+	}
+
+	function Service(){
+		}
+
+	function setPrice(uint _price) onlyOwner{
+		servicePrice = _price;
+	}
+
+	function consume(bytes32 publicKey){
+		if(users[msg.sender].length == 0){
+			users[msg.sender]= User({
+	   			userAddress:msg.sender,
+	   			publicKey:publicKey,
+	   			lastUpdate:now,
+	   			numberUsage:1
+	  		});
+		}
+		else{
+			users[msg.sender].lastUpdate = now;
+			users[msg.sender].numberUsage += 1;
+		}
+  	}
+}
+
+contract User is baseContract {
     address public usrAdd;
 
-    mapping(address => Service) public services;
+    //mapping(address => Service) public services;
+
     Service[] myConsumedservices;
     Service[] myProvidedservices;
-    String public publicKey;
+    bytes32 public publicKey;
 
-    struct Service{
+    struct ServiceInfo{
         address serviceAddress;
+        bytes32 publicKey;
         bytes32 serviceHash;
         uint lastUsage;
         uint256 numberUsage;
     }
 
-    function User(String _publicKey){
+    function User(bytes32 _publicKey){
         usrAdd = msg.sender;
-        publicKey = _name;
+        publicKey = _publicKey;
     }
 
     function setServicePublicKey(String publicKey){
@@ -49,7 +86,7 @@ contract User {
     function consumeService(address _serviceAddress, bytes32 _serviceHash) onlyOwner{
         // if service already not exist, just update usage information
         if(myConsumedservices[_serviceAddress] == 0){
-            myConsumedservices[_serviceAddress] =({
+            myConsumedservices[_serviceAddress] = ServiceInfo({
                 serviceAddress:_serviceAddress,
                 serviceHash:_serviceHash,
                 lastUsage:now,
@@ -60,30 +97,8 @@ contract User {
             myConsumedservices[_serviceAddress].lastUsage = now;
             myConsumedservices[_serviceAddress].numberUsage++;
         }
-
-        // call service.consume
-    }
-
-    function setDebt(uint256 _debt){
-        if(services[msg.sender].active){
-            services[msg.sender].lastUpdate = now;
-            services[msg.sender].debt = _debt;
-        }
-        else{
-            throw;
-        }
-    }
-
-    function payToProvider(address _providerAddress){
-        _providerAddress.send(services[_providerAddress].debt);
-    }
-
-    function unsubscribe(address _providerAddress){
-        if(services[_providerAddress].debt == 0]){
-            services[_providerAddress].active = false;
-        }
-        else{
-            throw;
-        }
+        Service service = Service();
+        _serviceAddress.send(service.Price);
+        myConsumedservices[_serviceAddress].publicKey = service.publicKey;
     }
 }
