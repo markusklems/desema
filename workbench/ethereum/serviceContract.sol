@@ -29,7 +29,7 @@ contract Service is baseContract{
 
 	mapping (address => user ) users;
 	struct user{
-		String publicKey;
+		bytes32 publicKey;
 		uint lastUpdate;
 		uint countUsage;
 	}
@@ -42,10 +42,10 @@ contract Service is baseContract{
 		servicePrice = _price;
 	}
 
-	function consume(bytes32 publicKey){
-		if(users[msg.sender].length == 0){
-			users[msg.sender] = ({
-	   			publicKey:publicKey,
+	function consume(bytes32 _publicKey){
+		if(users[msg.sender].publicKey == 0){
+			users[msg.sender] = user({
+	   			publicKey:_publicKey,
 	   			lastUpdate:now,
 	   			countUsage:1,
 	  		});
@@ -53,7 +53,7 @@ contract Service is baseContract{
 		}
 		else{
 			users[msg.sender].lastUpdate = now;
-			users[msg.sender].countUsage += 1
+			users[msg.sender].countUsage += 1;
 		}
   	}
 }

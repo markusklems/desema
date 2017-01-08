@@ -22,30 +22,6 @@ contract baseContract{
 	}
 }
 
-pragma solidity ^0.4.2;
-
-contract baseContract{
-
-	address public owner;
-
-	function baseContract(){
-		owner = msg.sender;
-	}
-
-  	modifier onlyOwner{
-  		if(msg.sender != owner){
-    			throw;
-  		}
-  		else{
-    			_;
-  		}
-	}
-
-	function kill() onlyOwner{
-  		suicide(owner);
-	}
-}
-
 contract Service is baseContract{
 
 	uint public servicePrice;
@@ -53,7 +29,7 @@ contract Service is baseContract{
 
 	mapping (address => user ) users;
 	struct user{
-		String publicKey;
+		bytes32 publicKey;
 		uint lastUpdate;
 		uint countUsage;
 	}
@@ -66,10 +42,10 @@ contract Service is baseContract{
 		servicePrice = _price;
 	}
 
-	function consume(bytes32 publicKey){
-		if(users[msg.sender].length == 0){
-			users[msg.sender] = ({
-	   			publicKey:publicKey,
+	function consume(bytes32 _publicKey){
+		if(users[msg.sender].publicKey == 0){
+			users[msg.sender] = user({
+	   			publicKey:_publicKey,
 	   			lastUpdate:now,
 	   			countUsage:1,
 	  		});
@@ -77,7 +53,7 @@ contract Service is baseContract{
 		}
 		else{
 			users[msg.sender].lastUpdate = now;
-			users[msg.sender].countUsage += 1
+			users[msg.sender].countUsage += 1;
 		}
   	}
 }
@@ -87,14 +63,13 @@ contract User is baseContract {
 	address public usrAdd;
 	bytes32 public publicKey;
 
-	mapping(address => Service) public myConsumedServices;
-	mapping(address => Service) public myProvidedServices;
+	mapping(address => ServiceInfo) public myConsumedServices;
+	mapping(address => ServiceInfo) public myProvidedServices;
 
 
     struct ServiceInfo{
         address serviceAddress;
         bytes32 publicKey;
-        bytes32 serviceHash;
         uint lastUsage;
         uint256 countUsage;
     }
@@ -106,19 +81,20 @@ contract User is baseContract {
 
     function consumeService(address _serviceAddress) onlyOwner{
         // if service already not exist, just update usage information
-        if(myConsumedservices[_serviceAddress] == 0){
-            myConsumedservices[_serviceAddress] = ServiceInfo({
+        if(myConsumedServices[_serviceAddress].serviceAddress == 0){
+            myConsumedServices[_serviceAddress] = ServiceInfo({
                 serviceAddress:_serviceAddress,
+                publicKey : 0,
                 lastUsage:now,
                 countUsage:1
             });
         }
         else{
-            myConsumedservices[_serviceAddress].lastUsage = now;
-            myConsumedservices[_serviceAddress].countUsage++;
+            myConsumedServices[_serviceAddress].lastUsage = now;
+            myConsumedServices[_serviceAddress].countUsage++;
         }
-        Service service = Service();
-        _serviceAddress.send(service.Price);
-        myConsumedservices[_serviceAddress].publicKey = service.publicKey;
+        Service service = Service(_serviceAddress);
+//        _serviceAddress.send(service.servicePrice);
+//        myConsumedServices[_serviceAddress].publicKey = service.publicKey;
     }
 }
