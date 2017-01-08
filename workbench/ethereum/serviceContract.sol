@@ -26,6 +26,7 @@ contract Service is baseContract{
 
 	uint public servicePrice;
 	uint public usersCount;
+	bytes32 public publicKey;
 
 	mapping (address => user ) users;
 	struct user{
@@ -40,6 +41,10 @@ contract Service is baseContract{
 
 	function setPrice(uint _price) onlyOwner{
 		servicePrice = _price;
+	}
+
+	function setPublicKey(bytes32 _publicKey) onlyOwner{
+	    publicKey = _publicKey;
 	}
 
 	function consume(bytes32 _publicKey){

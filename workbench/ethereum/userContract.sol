@@ -26,6 +26,7 @@ contract Service is baseContract{
 
 	uint public servicePrice;
 	uint public usersCount;
+	bytes32 public publicKey;
 
 	mapping (address => user ) users;
 	struct user{
