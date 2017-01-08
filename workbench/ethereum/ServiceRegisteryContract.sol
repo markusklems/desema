@@ -1,35 +1,34 @@
-
 pragma solidity ^0.4.0;
 
 contract ServiceRegistery {
-    
+
     address contractOwner;
-    uint public ServicesCount = 0;
-    
+    uint public servicesCount = 0;
+
     mapping (bytes32 => address) public owners;
     mapping (uint => bytes32) public services;
-    
+
     event NewService(
         bytes32 indexed _services
     );
-    
+
     function ServiceRegistery() {
     }
-    
-    function Register(bytes32 serviceHash) {
+
+    function register(bytes32 serviceHash) {
         if(owners[serviceHash] == address(0)){
             owners[serviceHash] = msg.sender;
-            ServicesCount++;
-	    services[ServicesCount] = serviceHash;
+            servicesCount++;
+            services[servicesCount] = serviceHash;
             NewService(serviceHash);
         }
     }
-    
-    function ChangeOwnership(address add, bytes32 serviceHash){
+
+    function changeOwnership(address add, bytes32 serviceHash) {
         if(owners[serviceHash] == msg.sender){
             owners[serviceHash] = add;
         }
     }
-    
-    function Kill() { if (msg.sender == contractOwner) selfdestruct(contractOwner); }
+
+    function kill() { if (msg.sender == contractOwner) selfdestruct(contractOwner); }
 }
