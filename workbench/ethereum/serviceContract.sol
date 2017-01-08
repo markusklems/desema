@@ -25,17 +25,18 @@ contract baseContract{
 contract Service is baseContract{
 
 	uint public servicePrice;
-	user[] users;
+	uint public usersCount;
+
+	mapping (address => user ) users;
 	struct user{
-		address userAddress;
 		String publicKey;
 		uint lastUpdate;
-		uint numberUsage;
+		uint countUsage;
 	}
 
-	function Service(uint _price){
-		servicePrice = _price;
-		}
+	function Service(){
+		owner = msg.sender;
+	}
 
 	function setPrice(uint _price) onlyOwner{
 		servicePrice = _price;
@@ -44,23 +45,15 @@ contract Service is baseContract{
 	function consume(bytes32 publicKey){
 		if(users[msg.sender].length == 0){
 			users[msg.sender] = ({
-	   			userAddress:msg.sender,
 	   			publicKey:publicKey,
 	   			lastUpdate:now,
-	   			numberUsage:1,
+	   			countUsage:1,
 	  		});
+			usersCount+=1;
 		}
 		else{
 			users[msg.sender].lastUpdate = now;
-			users[msg.sender].numberUsage += 1
+			users[msg.sender].countUsage += 1
 		}
   	}
 }
-
-//function setDebt(uint256 _debt, address _userAddress){
-
-
-//User person = User(_userAddress);
-//person.setDebt(_debt);
-//}
-//}
