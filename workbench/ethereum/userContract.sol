@@ -57,6 +57,19 @@ contract Service is baseContract{
 			users[msg.sender].countUsage += 1;
 		}
   	}
+	
+       // payable function:
+        address public sendingAddress;
+        uint public sendingMoney;
+        function getMoney(address providerAddress) payable {
+                sendingAddress = providerAddress;
+                sendingMoney = msg.value;
+        }
+    
+         function sendMoney() {
+               if (!sendingAddress.send(sendingMoney)) throw;        
+       }
+	
 }
 
 contract User is baseContract {
