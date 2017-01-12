@@ -13,6 +13,11 @@ contract marketPlacePayment {
         address sellerAddress;
         uint servicePrice;
     }
+    
+    struct buyerOrder {
+        address sellerAddress;
+        uint serviceOrderIndex;
+    }
     address contractOwner;
     
 //Init&kill 
@@ -29,6 +34,10 @@ contract marketPlacePayment {
     mapping(address => mapping(uint => serviceOrder)) public orders;
     mapping(address => uint) public orderIndex;
     mapping(uint => service) public services;
+    
+//Buyers order list
+    mapping(address => mapping(uint => buyerOrder)) public buyerOrderList;
+    mapping(address => uint) public buyerOrderIndex;
     
     function registerNewService(uint serviceID, uint price) {
         service thisService = services[serviceID];
@@ -54,8 +63,16 @@ contract marketPlacePayment {
             if (rest > 0) {
 //               if (!msg.sender.send(rest)) throw;
             }
+            
+            buyerOrderIndex[msg.sender] += 1;
+            uint newBuyerOrderIndex = buyerOrderIndex[msg.sender];
+            buyerOrderList[msg.sender][newBuyerOrderIndex].sellerAddress = sellerAddress;
+            buyerOrderList[msg.sender][newBuyerOrderIndex].serviceOrderIndex = newOrderIndex;
+
             return newOrderIndex;
         } else {
+ //           if (! msg.sender.send(msg.value)) throw;
+            //return 0;
             throw;
        }
     }
