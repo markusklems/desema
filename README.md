@@ -1,2 +1,6 @@
-# Cloud Prototyping Project (2016-17)
-Prototype of a decentralized, blockchain-based microservice marketplace, developed at ISE, TU Berlin.
+# DESEMA
+Prototype of a blockchain-based decentralized service marketplace, developed at ISE, TU Berlin (http://www.ise.tu-berlin.de/).
+
+Contributers:
+- Faculty staff: Jacob Eberhardt, Markus Klems
+- Students: Ahmed Tidjani, Christian Kniep, Nikola Stavrevski, Ravish Aggarwal, Simon Buchholz, Steffen Härtlein, Xiaonan Qiao
